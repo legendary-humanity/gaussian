@@ -1,0 +1,36 @@
+version: '3.3'
+services:
+  3d:
+    image: gs-image
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gs-container
+    restart: always
+    entrypoint: /entrypoint.sh
+    dns:
+      - 8.8.8.8
+    tty: true
+    volumes:
+      - type: bind
+        source: ../src
+        target: /app
+      - "../datasets:/datasets"
+      - type: volume
+        source: env_gs
+        target: /env_gs
+    ports:
+     - "6325:6325"
+     - "6322:22"
+    environment:
+      DISPLAY: 192.168.10.113:0.0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: ["gpu"]
+
+volumes:
+  env_gs:

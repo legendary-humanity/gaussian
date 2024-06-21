@@ -75,12 +75,7 @@ RUN apt-get install -y \
 
 
 RUN apt-get -y install gcc-10 g++-10
-# ENV CC=/usr/bin/gcc-10
-# ENV CXX=/usr/bin/g++-10
-# ENV CUDAHOSTCXX=/usr/bin/g++-10
-# ENV CUDA_HOME=/usr/local/cuda-11.8
-# ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11-8/lib64
-# ENV PATH=$PATH:$CUDA_HOME/bin
+
 RUN git clone https://github.com/colmap/colmap.git
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
